@@ -36,31 +36,6 @@ const handleEvent = (type, data) => {
   }
 };
 
-// QUICK EXAMPLE
-// posts === {
-//     'jabsh556': {
-//         id: 'jabsh556',
-//         title: 'post title',
-//         comments: [
-//             { id: 'klj3kl', content: 'comment!' }
-//         ]
-//     },
-//     'jabsh556': {
-//         id: 'jabsh556',
-//         title: 'post title',
-//         comments: [
-//             { id: 'klj3kl', content: 'comment!' }
-//         ]
-//     },
-//     'jabsh556': {
-//         id: 'jabsh556',
-//         title: 'post title',
-//         comments: [
-//             { id: 'klj3kl', content: 'comment!' }
-//         ]
-//     },
-// }
-
 app.get("/posts", (req, res) => {
   res.send(posts);
 });
@@ -69,7 +44,6 @@ app.post("/events", (req, res) => {
   const { type, data } = req.body;
 
   handleEvent(type, data);
-  //console.log(posts);
 
   res.send({});
 });
@@ -77,7 +51,7 @@ app.post("/events", (req, res) => {
 app.listen(4002, async () => {
   console.log("Listening on 4002");
 
-  const res = await axios.get("http://localhost:4005/events");
+  const res = await axios.get("http://event-bus-srv:4005/events");
 
   for (let event of res.data) {
     console.log("Processing event:", event.type);
